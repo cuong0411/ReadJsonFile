@@ -1,0 +1,99 @@
+[
+	{
+		"name": "Nguyễn",
+		"email": "nguyen@example.com",
+		"degrees": [
+			{
+				"type": "Cử nhân",
+				"school": "Cao đẳng Kỹ nghệ 2",
+				"country": "Việt Nam"
+			},
+			{
+				"type": "Thạc sĩ",
+				"school": "Sư phạm kỹ thuật",
+				"country": "Việt Nam"
+			}
+		]
+	},
+	{
+		"name": "Long",
+		"email": "tuan@example.com",
+		"degrees": [
+			{
+				"type": "Kỹ sư",
+				"school": "Harvard",
+				"country": "Mỹ"
+			},
+			{
+				"type": "Tiến sĩ",
+				"school": "Cambridge",
+				"country": "Mỹ"
+			}
+		]
+	},
+	{
+		"name": "Long",
+		"email": "long@example.com",
+		"degrees": [
+			{
+				"type": "Kỹ sư",
+				"school": "Melbourne",
+				"country": "Úc"
+			}
+		]
+	},
+	{
+		"name": "Long",
+		"email": "long1@example.com",
+		"degrees": [
+			{
+				"type": "Tiến sĩ",
+				"school": "Toronto",
+				"country": "Canada"
+			}
+		]
+	},
+	{
+		"name": "Trí",
+		"email": "tri@example.com",
+		"degrees": [
+			{
+				"type": "Kỹ sư",
+				"school": "Bách Khoa",
+				"country": "Việt Nam"
+			},
+			{
+				"type": "Tiến sĩ",
+				"school": "Khoa học tự nhiên",
+				"country": "Việt Nam"
+			},
+			{
+				"type": "Cử nhân",
+				"school": "Cao đẳng Kỹ nghệ 2",
+				"country": "Việt Nam"
+			}
+		]
+	},
+	{
+		"name": "Chiến",
+		"email": "chien@example.com",
+		"degrees": [
+			{
+				"type": "Kỹ sư",
+				"school": "Luật",
+				"country": "Việt Nam"
+			}
+		]
+	},
+	{
+		"name": "Chiến",
+		"email": "chien1@example.com",
+		"degrees": [
+			{
+				"type": "Tiến sĩ",
+				"school": "Ottawa",
+				"country": "Mỹ"
+			}
+		]
+	}
+]
