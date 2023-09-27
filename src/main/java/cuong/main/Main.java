@@ -12,6 +12,7 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.json.JsonWriterSettings;
 import org.bson.types.ObjectId;
 
 import java.io.File;
@@ -81,12 +82,21 @@ public class Main {
                 // until close() is called.
                 while (cursor.hasNext()) {
                     Document doc = cursor.next();
-                    seqWriter.write(doc);
+
+                    // manual mapping Document to Student object
+                    Student student = new Student();
+                    student.set_id(doc.getObjectId("_id"));
+                    student.setName(doc.getString("name"));
+                    student.setEmail(doc.getString("email"));
+                    student.setDegrees((List<Degree>) doc.get("degrees"));
+
+                    seqWriter.write(student);
                 }
             }
             seqWriter.close();
             System.out.println("Write from db to json file successfully!");
         } catch (IOException e) {
+            System.err.println("Import from db to file fail.");
             System.err.println(e.getMessage());
         }
     }
