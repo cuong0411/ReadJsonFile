@@ -1,7 +1,10 @@
 package cuong.main;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SequenceWriter;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Accumulators;
@@ -12,6 +15,7 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -46,12 +50,65 @@ public class Main {
 //            findName(collection, filter);
 
             // 4. Thống kê số lượng người theo loại băng cấp (type), quốc gia (country)
-            aggregationDemo2(collection, "country");
+//            aggregationDemo2(collection, "country");
 //            aggregationDemo2(collection, "type");
 
+            // đọc từ mongodb lưu vào file
+            importFromDbToJsonFile(collection, "output.json");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    /**
+     * Append JSON array from db to file
+     * @param collection the name of collection
+     * @param outputFile the name of the output file
+     */
+    public static void importFromDbToJsonFile(MongoCollection<Document> collection, String outputFile) {
+        File file = createNewOutputFile(outputFile);
+        if (file == null) {
+            System.out.println("Error when creating file " + outputFile);
+            System.out.println("Import fail!");
+            return;
+        }
+
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            ObjectMapper mapper = new ObjectMapper();
+            SequenceWriter seqWriter = mapper.writer().writeValuesAsArray(fileWriter);
+            try (MongoCursor<Document> cursor = collection.find().iterator()) {
+                // each write() appends to an existing JSON array in the file,
+                // until close() is called.
+                while (cursor.hasNext()) {
+                    Document doc = cursor.next();
+                    seqWriter.write(doc);
+                }
+            }
+            seqWriter.close();
+            System.out.println("Write from db to json file successfully!");
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Create new file based on file name, delete the file if exists,
+     * then create a new one
+     * @param outputFile the name of file to create
+     * @return a new file
+     */
+    public static File createNewOutputFile(String outputFile) {
+        File file = new File(outputFile);
+        if (file.exists()) {
+            boolean result = file.delete();
+            if (result) {
+                System.out.println("Delete file successfully!");
+            } else {
+                System.out.println("Error when deleting file.");
+                return null;
+            }
+        }
+        return new File(outputFile);
     }
 
     /**
