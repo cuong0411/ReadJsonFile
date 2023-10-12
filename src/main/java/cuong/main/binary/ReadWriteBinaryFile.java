@@ -24,6 +24,7 @@ public class ReadWriteBinaryFile {
     public static void main(String[] args) {
         String smallFile = "coffee.jpg";
         String largeFile = "largeFile.pdf";
+        String video = "video.mp4";
 
 
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
@@ -32,9 +33,11 @@ public class ReadWriteBinaryFile {
 
 //            storeLargeBinaryFile(gridFSBucket, smallFile);
 //            storeLargeBinaryFile(gridFSBucket, largeFile);
+            storeLargeBinaryFile(gridFSBucket, video);
 
-            retrieveLargeBinaryFile(gridFSBucket, smallFile);
-            retrieveLargeBinaryFile(gridFSBucket, largeFile);
+//            retrieveLargeBinaryFile(gridFSBucket, smallFile);
+//            retrieveLargeBinaryFile(gridFSBucket, largeFile);
+            retrieveLargeBinaryFile(gridFSBucket, video);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
