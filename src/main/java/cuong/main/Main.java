@@ -41,6 +41,7 @@ public class Main {
 
             // 1. Đọc file đó và lưu vào mongodb
 //            importFromJsonFileToDb(collection, FILE_NAME);
+//            importFromJsonFileToDb(collection, "output.json");
 //            collection.find().forEach(d -> System.out.println(d.toJson()));
 
             // 2. Tìm kiếm dữ liệu filter theo name/type
@@ -90,7 +91,8 @@ public class Main {
                     student.setEmail(doc.getString("email"));
                     student.setDegrees((List<Degree>) doc.get("degrees"));
 
-                    seqWriter.write(student);
+                    seqWriter.write(doc);
+//                    seqWriter.write(student);
                 }
             }
             seqWriter.close();
